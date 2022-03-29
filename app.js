@@ -11,8 +11,8 @@ import db from './utils/db.js';
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-const port = 3000;
+app.use(express.urlencoded({ extended: true }));
+const port = process.env.PORT || 3000;
 /*
 app.use(session({
   secret: 'keyboard cat',
@@ -35,8 +35,8 @@ const loggedIn = (req, res, next) => {
  */
 
 app.use('/auth', authRoute);
-app.use('/cat', passport.authenticate('jwt', {session: false}), catRoute);
-app.use('/user', passport.authenticate('jwt', {session: false}), userRoute);
+app.use('/cat', passport.authenticate('jwt', { session: false }), catRoute);
+app.use('/user', passport.authenticate('jwt', { session: false }), userRoute);
 //app.use('/cat', loggedIn, catRoute);
 //app.use('/user', loggedIn, userRoute);
 
@@ -47,4 +47,3 @@ db.on('connected', () => {
     console.log(`app listen on port ${port}`);
   });
 });
-
